@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Person {
+      constructor(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      speak() {
+        console.log(`我叫${this.name}，年龄是${this.age}`);
+      }
+    }
+    class Student extends Person {
+      constructor(name, age, grade) {
+        super(name, age);
+        this.grade = grade;
+      } // 重写
+      speak() {
+        console.log(`我叫${this.name}，年龄是${this.age}，现在已经${grade}了`);
+      }
+    }
+    const p1 = new Person('tom', 20);
+    const p2 = new Person('jerry', 15);
+    console.log(p1);
+    console.log(p2);
+    p1.speak();
+    p2.speak();
+    const s2 = new Student('jj', 50, '毕业');
+    console.log(s2);
+    s2.speak();
+  </script>
+</html>
