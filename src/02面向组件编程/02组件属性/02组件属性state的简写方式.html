@@ -19,23 +19,25 @@
         // 构造器调用一次
         constructor(props) {
           super(props);
-          this.state = { isHot: true };
-          this.changeWeather = this.changeWeather.bind(this);
+          // this.state = { isHot: true };
+          // this.changeWeather = this.changeWeather.bind(this);
         }
+        state = { isHot: true };
         // render调用n+1次
         render() {
           console.log(this);
           const { isHot } = this.state;
           return <h1 onClick={this.changeWeather}>今天天气很{isHot ? '炎热' : '凉爽'}</h1>;
         }
-        // 更新几次就调用几次
-        changeWeather() {
+        // 更新几次就调用几次 自定义方法用赋值语句+箭头函数
+        changeWeather = () => {
+          // console.log(this);
           const isHot = this.state.isHot;
           // state 不可直接更改
           // this.state.isHot = !isHot;
           // 调用setState更新，更新是合并，不是替换
           this.setState({ isHot: !isHot });
-        }
+        };
       }
       // 渲染组件
       ReactDOM.render(<Weather />, document.getElementById('test'));
