@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/src//resource/ico/favicon.ico" type="image/x-icon" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 引入库 -->
+    <script src="/React-js/react.development.js"></script>
+    <script src="/React-js/react-dom.development.js"></script>
+    <script src="/React-js/babel.min.js"></script>
+    <script type="text/babel">
+      // 创建类式组件
+      class Demo extends React.Component {
+        state = {
+          isHot: false,
+        };
+        showData = () => {
+          const { inp1 } = this;
+          alert(inp1.value);
+        };
+        changeWeather = () => {
+          const { isHot } = this.state;
+          this.setState({ isHot: !isHot });
+        };
+        // 定义为绑定函数形式
+        saveData = c => {
+          this.inp1 = c;
+        };
+        // render调用n+1次
+        render() {
+          const { isHot } = this.state;
+          return (
+            <div>
+              <h2>今天天气很{isHot ? '凉爽' : '炎热'}</h2>
+              {/*<input
+                ref={c => {
+                  this.inp1 = c;
+                }}
+                type="text"
+                placeholder="点击按钮展示左侧数据"
+              />*/}
+              <input ref={this.saveData} type="text" />
+              &nbsp;
+              <button ref="btn1" onClick={this.showData}>
+                展示数据
+              </button>{' '}
+              &nbsp;
+              <button ref="btn1" onClick={this.changeWeather}>
+                切换天气
+              </button>
+            </div>
+          );
+        }
+      }
+      // 渲染组件
+      ReactDOM.render(<Demo />, document.getElementById('test'));
+    </script>
+  </body>
+</html>

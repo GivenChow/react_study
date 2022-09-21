@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/src//resource/ico/favicon.ico" type="image/x-icon" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 引入库 -->
+    <script src="/React-js/react.development.js"></script>
+    <script src="/React-js/react-dom.development.js"></script>
+    <script src="/React-js/babel.min.js"></script>
+    <script type="text/babel">
+      // 创建类式组件
+      class Demo extends React.Component {
+        showData = () => {
+          alert(this.refs.inp1.value);
+        };
+        showRightVal = () => {
+          alert(this.refs.inp2.value);
+        };
+        // render调用n+1次
+        render() {
+          return (
+            <div>
+              <input ref="inp1" type="text" placeholder="点击按钮展示左侧数据" />
+              &nbsp;
+              <button ref="btn1" onClick={this.showData}>
+                展示数据
+              </button>
+              &nbsp;
+              <input ref="inp2" type="text" placeholder="失去焦点展示数据" onBlur={this.showRightVal} />
+            </div>
+          );
+        }
+      }
+      // 渲染组件
+      ReactDOM.render(<Demo />, document.getElementById('test'));
+    </script>
+  </body>
+</html>
