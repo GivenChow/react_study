@@ -23,7 +23,7 @@
         this.grade = grade;
       } // 重写
       speak() {
-        console.log(`我叫${this.name}，年龄是${this.age}，现在已经${grade}了`);
+        console.log(`我叫${this.name}，年龄是${this.age}，现在已经${this.grade}了`);
       }
     }
     const p1 = new Person('tom', 20);
@@ -41,9 +41,10 @@
         this.price = price;
         // this.wheel = 4;
       }
-      // a = 1;
+      static a = 1;
       wheel = 4;
     }
     const c1 = new Car('奔驰c63', 1990000);
+    console.log(Car.a);
   </script>
 </html>
