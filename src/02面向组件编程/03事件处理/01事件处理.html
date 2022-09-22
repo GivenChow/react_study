@@ -16,43 +16,31 @@
     <script type="text/babel">
       // 创建类式组件
       class Demo extends React.Component {
-        state = {
-          isHot: false,
-        };
+        /*
+        一、通过onXxx属性指定事件处理函数（注意on后面字母大小写）
+          1.React使用的是自定义（合成事件），而不是使用原生DOM事件 -------兼容性更好
+          2.React中的事件是通过事件委托方式处理（委托到组件最外层的元素） ---------高效
+        二、通过event.target得到发生事件的DOM元素对象
+        */
+        // 返回一个容器，该容器可存储ref所标识的节点，该容器只能存一个
+        myRef = React.createRef();
         showData = () => {
-          const { inp1 } = this;
-          alert(inp1.value);
+          alert(this.myRef.current.value);
         };
-        changeWeather = () => {
-          const { isHot } = this.state;
-          this.setState({ isHot: !isHot });
-        };
-        // 定义为绑定函数形式
-        saveData = c => {
-          this.inp1 = c;
+        showRightData = e => {
+          alert(e.target.value);
         };
         // render调用n+1次
         render() {
-          const { isHot } = this.state;
           return (
             <div>
-              <h2>今天天气很{isHot ? '凉爽' : '炎热'}</h2>
-              {/*<input
-                ref={c => {
-                  this.inp1 = c;
-                }}
-                type="text"
-                placeholder="点击按钮展示左侧数据"
-              />*/}
-              <input ref={this.saveData} type="text" />
+              <input ref={this.myRef} type="text" placeholder="点击按钮展示左侧数据" />
               &nbsp;
               <button ref="btn1" onClick={this.showData}>
                 展示数据
-              </button>{' '}
-              &nbsp;
-              <button ref="btn1" onClick={this.changeWeather}>
-                切换天气
               </button>
+              &nbsp;
+              <input onBlur={this.showRightData} type="text" placeholder="失去焦点展示右侧数据" />
             </div>
           );
         }
