@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/src//resource/ico/favicon.ico" type="image/x-icon" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 引入库 -->
+    <script src="../../React-js/react.development.js"></script>
+    <script src="../../React-js/react-dom.development.js"></script>
+    <script src="../../React-js/babel.min.js"></script>
+    <script type="text/babel">
+      class Count extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { count: 0 };
+        }
+
+        // 组件挂载之前
+        componentWillMount() {
+          console.log('组件挂载之前');
+        }
+
+        // 组件挂载完毕
+        componentDidMount() {
+          console.log('组件挂载完毕');
+        }
+
+        // 是否更新flag
+        shouldComponentUpdate() {
+          console.log('阀门开启');
+          return 1;
+        }
+
+        // 更新之前
+        componentWillUpdate() {
+          console.log('更新之前');
+        }
+
+        // 更新完毕
+        componentDidUpdate() {
+          console.log('更新完毕');
+        }
+
+        // 组件卸载之前
+        componentWillUnmount() {
+          console.log('组件卸载之前');
+        }
+
+        addCall = () => {
+          let { count } = this.state;
+          this.setState({ count: count + 1 });
+        };
+        deathCall = () => {
+          // 卸载
+          ReactDOM.unmountComponentAtNode(document.getElementById('test'));
+        };
+        forceCall = () => {
+          this.forceUpdate();
+        };
+
+        // 初始化渲染、状态更新后
+        render() {
+          console.log('初始化渲染或更新');
+          const count = this.state.count;
+          return (
+            <div>
+              <h2 style={{ opacity: this.state.opacity }}>当前值为：{count}</h2>
+              <button onClick={this.addCall}>点我+1</button>
+              <button onClick={this.deathCall}>卸载</button>
+              <button onClick={this.forceCall}>不更改数据强制更新</button>
+            </div>
+          );
+        }
+      }
+      class A extends React.Component {
+        state = {
+          carName: '奔驰',
+        };
+        changeCar = () => {
+          this.setState({ carName: '奥迪' });
+        };
+        render() {
+          return (
+            <div>
+              <div>A</div>
+              <button onClick={this.changeCar}>切换</button>
+              <B carName={this.state.carName} />
+            </div>
+          );
+        }
+      }
+      class B extends React.Component {
+        componentDidMount() {
+          console.log('B:挂载完毕');
+        }
+
+        // 组件将要接收新参数
+        componentWillReceiveProps() {
+          console.log('B:将要接收新参数');
+        }
+
+        // 是否更新flag
+        shouldComponentUpdate() {
+          console.log('阀门开启');
+          return 1;
+        }
+
+        // 更新之前
+        componentWillUpdate() {
+          console.log('更新之前');
+        }
+
+        // 更新完毕
+        componentDidUpdate() {
+          console.log('更新完毕');
+        }
+
+        render() {
+          return (
+            <div>
+              <div>B，接收的数据：{this.props.carName}</div>
+            </div>
+          );
+        }
+      }
+      // 渲染组件
+      // ReactDOM.render(<Count />, document.getElementById('test'));
+      ReactDOM.render(<A />, document.getElementById('test'));
+    </script>
+  </body>
+</html>
