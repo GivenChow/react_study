@@ -25,7 +25,7 @@
           console.log('组件挂载之前');
         }
 
-        // 组件挂载完毕
+        // 组件挂载完毕  一般用于开启定时器、发送网络请求、订阅消息
         componentDidMount() {
           console.log('组件挂载完毕');
         }
@@ -46,7 +46,7 @@
           console.log('更新完毕');
         }
 
-        // 组件卸载之前
+        // 组件卸载之前 取消定时器、取消订阅消息
         componentWillUnmount() {
           console.log('组件卸载之前');
         }
