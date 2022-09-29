@@ -1,25 +1,32 @@
-import React, { Component } from 'react'
-import Item from '../Item';
-import PropType from 'prop-types'
-import './index.css'
-
+import React, { Component } from 'react';
+import './index.css';
 export default class List extends Component {
-   //对接收的参数做限制,限制不能为空以及参数的类型
-    static propTypes = {
-        todos:PropType.array.isRequired,
-        show:PropType.func.isRequired,
-        deleteById:PropType.func.isRequired,
-    }
-  render () {
-    const {todos} = this.props;
+  render() {
+    const { users, isFrist, isLoad, isError } = this.props;
     return (
-      <ul className="todo-main">
-          {
-            todos.map((todo)=>{
-                return <Item key = {todo.id} {...todo} createCheck = {this.props.show} deleteById = {this.props.deleteById} />
+      <div className="row">
+        {
+          //因为不能在JSX语法中使用if，只能是表达式，所以可以是有用三元运算符进行判断。
+          isFrist ? (
+            <h1>欢迎进入页面</h1>
+          ) : isLoad ? (
+            <h2>正在搜索页面</h2>
+          ) : isError !== '' ? (
+            <h1>{isError}</h1>
+          ) : (
+            users.map(el => {
+              return (
+                <div className="card" key={el.id}>
+                  <a href={el.html_url} target="_blank" rel="noreferrer">
+                    <img alt="headImg" src={el.avatar_url} style={{ width: '100px' }} />
+                  </a>
+                  <p className="card-text">{el.login}</p>
+                </div>
+              );
             })
-          }
-      </ul>
-    )
+          )
+        }
+      </div>
+    );
   }
 }

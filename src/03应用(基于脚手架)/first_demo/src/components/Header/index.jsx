@@ -1,28 +1,35 @@
-import React, { Component } from 'react'
-import PropType from 'prop-types'
-import './index.css'
+import React, { Component } from 'react';
+import axios from 'axios';
 export default class Header extends Component {
-  static propTypes = {
-    addTodo:PropType.func.isRequired
-  }
-  handleKeyUp = (event) =>{
-    const {target,keyCode} = event
-    //keyCode:是键盘点击的那一个键值，13代表着回车2
-    //判断是否是回车
-    if(keyCode !== 13) return 
-    //判断这个输入是否空
-    if(target.value.trim() === ''){
-        alert("输入的不能为空");
-        return
-    }
-    this.props.addTodo(target.value);
-    target.value = "";
-  }
+  search = () => {
+    // 获取用户的输入
+    const {
+      KeyValue: { value: keyWord },
+    } = this;
+    console.log(keyWord);
+    //在搜索之前设置,搜索的开始，结束第一次展示
+    this.props.saveUsers({ isFrist: false, isLoad: true });
+    // 发送网络请求
+    axios.get(`/api1/search/users?q=${keyWord}`).then(
+      response => {
+        this.props.saveUsers(response.data.items);
+      },
+      error => {
+        this.props.saveUsers({ isError: error.message, isLoad: false });
+      }
+    );
+  };
   render() {
     return (
-      <div className ="todo-header">
-        <input onKeyUp={this.handleKeyUp}  type="text" placeholder="请输入你的任务名称，按回车键确认"/>
-      </div>
-    )
+      <section className="jumbotron">
+        <h3 className="jumbotron-heading">搜索GitHub用户</h3>
+        <div>
+          {/*使用ref拿到输入的数据，ref中使用回调函数的形式，在实例对象中创建一个KeyValue的属性，值是该节点*/}
+          <input ref={c => (this.KeyValue = c)} type="text" placeholder="输入关键词进行搜索" />
+          &nbsp;
+          <button onClick={this.search}>搜索</button>
+        </div>
+      </section>
+    );
   }
 }
