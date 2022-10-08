@@ -8,8 +8,8 @@ export default class App extends Component {
     isLoad: false,
     isError: '',
   };
-  saveUsers = users => {
-    this.setState({ users });
+  saveUsers = stateObj => {
+    this.setState(stateObj);
   };
   render() {
     const { users } = this.state;

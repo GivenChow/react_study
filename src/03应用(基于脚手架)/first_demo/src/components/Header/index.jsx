@@ -12,7 +12,7 @@ export default class Header extends Component {
     // 发送网络请求
     axios.get(`/api1/search/users?q=${keyWord}`).then(
       response => {
-        this.props.saveUsers(response.data.items);
+        this.props.saveUsers({ users: response.data.items, isLoad: false });
       },
       error => {
         this.props.saveUsers({ isError: error.message, isLoad: false });
