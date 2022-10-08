@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PubSub from 'pubsub-js';
 import axios from 'axios';
 export default class Header extends Component {
   search = () => {
@@ -8,19 +7,15 @@ export default class Header extends Component {
       KeyValue: { value: keyWord },
     } = this;
     console.log(keyWord);
-    const add = 'add';
-    PubSub.publish(add, { isFrist: false, isLoad: true });
     //在搜索之前设置,搜索的开始，结束第一次展示
-    // this.props.updateAppState({ isFrist: false, isLoad: true });
+    this.props.saveUsers({ isFrist: false, isLoad: true });
     // 发送网络请求
     axios.get(`/api1/search/users?q=${keyWord}`).then(
       response => {
-        // this.props.updateAppState({ users: response.data.items, isLoad: false });
-        PubSub.publish(add, { users: response.data.items, isLoad: false });
+        this.props.saveUsers({ users: response.data.items, isLoad: false });
       },
       error => {
-        // this.props.updateAppState({ isError: error.message, isLoad: false });
-        PubSub.publish(add, { isError: error.message, isLoad: false });
+        this.props.saveUsers({ isError: error.message, isLoad: false });
       }
     );
   };
