@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import About from './pages/About';
 import Home from './pages/Home';
 import Header from './components/Header';
@@ -40,10 +40,12 @@ export default class App extends Component {
                 {/* 
                 注册路由，也就是写对应的关系， 同一个路由指向不同组件这个时候使用Switch包裹路由使path和component一一对应
                 exact精准匹配  Route默认为模糊匹配
+                Redirect 一般写在路由最下方，当所有路由都无法匹配时，跳转到Redirect指定的路由
                 */}
                 <Switch>
                   <Route path="/about" component={About} />
                   <Route path="/home" component={Home} />
+                  {/* <Redirect to="/about"></Redirect> */}
                 </Switch>
               </div>
             </div>
