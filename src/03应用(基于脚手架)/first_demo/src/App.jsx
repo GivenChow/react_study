@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import About from './pages/About';
 import Home from './pages/Home';
 import Header from './components/Header';
@@ -37,9 +37,11 @@ export default class App extends Component {
           <div className="col-xs-6">
             <div className="panel">
               <div className="panel-body">
-                {/* 注册路由，也就是写对应的关系 */}
-                <Route path="/about" component={About} />
-                <Route path="/home" component={Home} />
+                {/* 注册路由，也就是写对应的关系， 同一个路由指向不同组件这个时候使用Switch包裹路由使path和component一一对应*/}
+                <Switch>
+                  <Route path="/about" component={About} />
+                  <Route path="/home" component={Home} />
+                </Switch>
               </div>
             </div>
           </div>
