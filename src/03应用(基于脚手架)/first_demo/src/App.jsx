@@ -37,7 +37,10 @@ export default class App extends Component {
           <div className="col-xs-6">
             <div className="panel">
               <div className="panel-body">
-                {/* 注册路由，也就是写对应的关系， 同一个路由指向不同组件这个时候使用Switch包裹路由使path和component一一对应*/}
+                {/* 
+                注册路由，也就是写对应的关系， 同一个路由指向不同组件这个时候使用Switch包裹路由使path和component一一对应
+                exact精准匹配  Route默认为模糊匹配
+                */}
                 <Switch>
                   <Route path="/about" component={About} />
                   <Route path="/home" component={Home} />
