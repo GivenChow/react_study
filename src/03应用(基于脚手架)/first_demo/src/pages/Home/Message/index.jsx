@@ -27,14 +27,17 @@ export default class Message extends Component {
             return (
               <li key={el.id}>
                 {/* 向路由组件传params参数 */}
-                <Link to={`/home/message/detail/${el.id}/${el.title}`}>{el.title}</Link>&nbsp;&nbsp;
+                {/* <Link to={`/home/message/detail/${el.id}/${el.title}`}>{el.title}</Link>&nbsp;&nbsp; */}
+                <Link to={`/home/message/detail/?id=${el.id}&title=${el.title}`}>{el.title}</Link>&nbsp;&nbsp;
               </li>
             );
           })}
         </ul>
         <hr />
         {/* 声明接收params参数 */}
-        <Route path={'/home/message/detail/:id/:title'} component={Detail} />
+        {/* <Route path={'/home/message/detail/:id/:title'} component={Detail} /> */}
+        {/* 声明接收search参数，正常注册路由即可 */}
+        <Route path={'/home/message/detail'} component={Detail} />
       </div>
     );
   }

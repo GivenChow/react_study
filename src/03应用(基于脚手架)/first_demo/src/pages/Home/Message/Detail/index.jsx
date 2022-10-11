@@ -6,7 +6,21 @@ const detailData = [
 ];
 export default class Detail extends Component {
   render() {
-    const { title, id } = this.props.match.params;
+    // 接收params参数
+    // const { title, id } = this.props.match.params;
+    // 接收search参数
+    let { search } = this.props.location;
+    search = search.replace('?', '');
+    let arr = search.split('&');
+    let obj = {};
+    arr.forEach(function (item) {
+      //每一项元素，再根据=号字符 打散成数组
+      let kv = item.split('=');
+      //每次向对象里面添加 属性和属性值
+      obj[kv[0]] = kv[1];
+    });
+    // console.log(obj);
+    const { id, title } = obj;
     const findRes = detailData.find(el => {
       return el.id == id;
     });
@@ -14,7 +28,7 @@ export default class Detail extends Component {
       <div>
         <ul>
           <li>ID：{id}</li>
-          <li>TITLE：{title}</li>
+          <li>TITLE：{decodeURI(title)}</li>
           <li>CONTENT：{findRes.content}</li>
         </ul>
       </div>
