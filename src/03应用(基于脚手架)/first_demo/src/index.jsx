@@ -6,6 +6,7 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 const root = createRoot(document.getElementById('root'));
 root.render(
+  // 让app的所以子组件都能接收store
   <Provider store={store}>
     <App />
   </Provider>
